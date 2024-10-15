@@ -1,7 +1,13 @@
+import { Outlet } from "react-router-dom";
+
 export default function App() {
   return (
-    <div>
-      <h1 className="bg-red-400">Hello world</h1>
-    </div>
+    <>
+      <nav>Navbar</nav>
+      <main className="min-h-screen max-w-7xl px-4 py-6 mx-auto">
+        <Outlet />
+      </main>
+      <footer>Footer</footer>
+    </>
   );
 }
