@@ -23,7 +23,7 @@ const Navbar = () => {
     <header className="max-w-7xl mx-auto px-4 py-6">
       <nav className="flex justify-between items-center">
         {/* left side */}
-        <div className="flex items-center gap-16">
+        <div className="flex items-center sm:gap-16">
           <Link to={"/"}>
             <HiMiniBars3CenterLeft size={25} />
           </Link>
