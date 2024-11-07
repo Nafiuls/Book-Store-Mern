@@ -8,8 +8,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa6";
 
 const news = [
   {
@@ -70,7 +70,6 @@ const News = () => {
             spaceBetween: 50,
           },
         }}
-        modules={[Pagination]}
         className="mySwiper"
       >
         {news.map((item, index) => (
@@ -93,6 +92,9 @@ const News = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+      <h1 className="my-10 flex justify-center items-center text-xl gap-3 ">
+        Swipe <FaArrowRight />
+      </h1>
     </div>
   );
 };
