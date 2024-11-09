@@ -17,7 +17,7 @@ const navigation = [
 const Navbar = () => {
   // toggle drop down
   const [isOpen, setIsOpen] = useState(false);
-  const user = true;
+  const user = false;
 
   return (
     <header className="max-w-7xl mx-auto px-4 py-6">
