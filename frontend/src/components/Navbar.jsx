@@ -6,6 +6,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import imgAvatar from "../assets/Icons/avatar.png";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard" },
@@ -17,6 +18,7 @@ const navigation = [
 const Navbar = () => {
   // toggle drop down
   const [isOpen, setIsOpen] = useState(false);
+  const cartItems = useSelector((state) => state.cart.cartItems);
   const user = false;
 
   return (
@@ -91,7 +93,13 @@ const Navbar = () => {
             className="flex items-center bg-primary p-1 sm:px-6 px-2 font-semibold text-secondary rounded-md"
           >
             <MdOutlineShoppingCart size={25} />
-            <span className="text-sm font-semibold sm:ml-1">0</span>
+            {cartItems.length > 0 ? (
+              <span className="text-sm font-semibold sm:ml-1">
+                {cartItems.length}
+              </span>
+            ) : (
+              <span className="text-sm font-semibold sm:ml-1">0</span>
+            )}
           </Link>
         </div>
       </nav>

@@ -33,7 +33,6 @@ const TopSellers = () => {
       : books.filter(
           (book) => book.category === selectedCategory.toLocaleLowerCase()
         );
-  console.log(filteredBooks);
   return (
     <div className="my-10">
       <h2 className="text-2xl font-semibold mb-6">Top Sellers</h2>
