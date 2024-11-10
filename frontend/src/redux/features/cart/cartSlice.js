@@ -20,9 +20,19 @@ const cartSlice = createSlice({
         toast.info("Item already in cart");
       }
     },
+    // remove cart
+    removeFromCart: (state, action) => {
+      state.cartItems = state.cartItems.filter(
+        (item) => item._id !== action.payload._id
+      );
+    },
+
+    clearCart: (state) => {
+      state.cartItems = [];
+    },
   },
 });
 
 // export the actions
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, clearCart, removeFromCart } = cartSlice.actions;
 export default cartSlice.reducer;
