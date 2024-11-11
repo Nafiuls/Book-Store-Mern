@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getImgUrl } from "../../utils/getImgUrl";
-import { removeFromCart } from "../../redux/features/cart/cartSlice";
+import { clearCart, removeFromCart } from "../../redux/features/cart/cartSlice";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -9,7 +9,9 @@ const Cart = () => {
     .reduce((acc, item) => acc + item.newPrice, 0)
     .toFixed(2);
   const dispatch = useDispatch();
-  const handleClearCart = () => {};
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
   //   remove single product
   const handleRemoveFromCart = (item) => {
     dispatch(removeFromCart(item));
