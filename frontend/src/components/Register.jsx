@@ -3,9 +3,13 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 // iconst
 import { FaGoogle } from "react-icons/fa";
+import { UseAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
 const Register = () => {
   // error message state
   const [message, setMessage] = useState("");
+  const { registerUser } = UseAuth();
+
   // handle login fnc
   const {
     register,
@@ -13,9 +17,15 @@ const Register = () => {
     formState: { errors },
   } = useForm();
   // handle register
-  const onSubmit = (data) => {
-    const email = data.email;
-    const pass = data.password;
+  const onSubmit = async (data) => {
+    console.log(data);
+    try {
+      await registerUser(data.email, data.password);
+      toast.success("User Registered Successfully");
+    } catch (error) {
+      setMessage("Please provide a valid email and password");
+      console.log(error);
+    }
   };
   // handle google login fnc
   const handleGoogleLogin = () => {};
