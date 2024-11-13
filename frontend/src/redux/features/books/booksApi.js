@@ -24,8 +24,8 @@ const booksApi = createApi({
     }),
     // fetch singgle book by id
     fetchBookById: builder.query({
-      query: (id) => `/signle-book/${id}`,
-      providesTags: (results, error, id) => [{ type: "Books", id }],
+      query: (id) => `/single-book/${id}`,
+      providesTags: (result, error, id) => [{ type: "Books", id }],
     }),
     // add a book
     addBook: builder.mutation({
