@@ -2,19 +2,27 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UseAuth } from "../../context/AuthContext";
+import { toast } from "react-toastify";
+import { usePlaceOrderMutation } from "../../redux/features/orders/orderApi";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const CheckOut = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
-  const totalPrice = cartItems.reduce((acc, item) => acc + item.newPrice, 0);
-  const currentUser = true; // todo : use get user from auth
+  const totalPrice = cartItems
+    .reduce((acc, item) => acc + item.newPrice, 0)
+    .toFixed(2);
+  const { user } = UseAuth();
   const { register, handleSubmit } = useForm();
 
   const [isChecked, setIsChecked] = useState(false);
-  const onSubmit = (data) => {
+  const [placeOrder, { isLoading }] = usePlaceOrderMutation();
+  const navigate = useNavigate();
+  const onSubmit = async (data) => {
     const newOrder = {
       name: data.name,
-      email: currentUser?.email,
+      email: user?.email,
       address: {
         city: data.city,
         country: data.country,
@@ -25,7 +33,17 @@ const CheckOut = () => {
       productIds: cartItems.map((item) => item?._id),
       totalPrice: totalPrice,
     };
+    console.log(newOrder);
+    try {
+      await placeOrder(newOrder).unwrap();
+      toast.success("Order placed successfully");
+      navigate("/orders");
+    } catch (error) {
+      console.log("error placing order", error);
+      toast.error("Error placing order");
+    }
   };
+  if (isLoading) return <LoadingSpinner />;
   return (
     <section>
       <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
@@ -72,7 +90,7 @@ const CheckOut = () => {
                         id="email"
                         className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                         disabled
-                        defaultValue={currentUser?.email}
+                        defaultValue={user?.email}
                         placeholder="email@domain.com"
                       />
                     </div>

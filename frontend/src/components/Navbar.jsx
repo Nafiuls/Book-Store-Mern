@@ -7,6 +7,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import imgAvatar from "../assets/Icons/avatar.png";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { UseAuth } from "../context/AuthContext";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard" },
@@ -16,10 +17,15 @@ const navigation = [
 ];
 
 const Navbar = () => {
+  const { user, logoutUser } = UseAuth();
   // toggle drop down
   const [isOpen, setIsOpen] = useState(false);
   const cartItems = useSelector((state) => state.cart.cartItems);
-  const user = false;
+
+  // logout user
+  const handleLogout = () => {
+    logoutUser();
+  };
 
   return (
     <header className="max-w-7xl mx-auto px-4 py-6">
@@ -72,6 +78,14 @@ const Navbar = () => {
                           </Link>
                         </li>
                       ))}
+                      <li>
+                        <button
+                          onClick={handleLogout}
+                          className="block w-full px-2 py-2 text-sm bg-red-500 rounded text-white font-semibold hover:bg-gray-100"
+                        >
+                          Logout
+                        </button>
+                      </li>
                     </ul>
                   </div>
                 )}

@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 // iconst
 import { FaGoogle } from "react-icons/fa";
+import { UseAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const { loginUser, signInGoogle } = UseAuth();
+  const navigate = useNavigate();
   // error message state
   const [message, setMessage] = useState("");
   // handle login fnc
@@ -13,12 +17,27 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    const email = data.email;
-    const pass = data.password;
+  const onSubmit = async (data) => {
+    try {
+      await loginUser(data.email, data.password);
+      toast.success("User Logged In Successfully");
+      navigate("/");
+    } catch (error) {
+      setMessage("Please provide a valid email and password");
+      console.log("error login ", error);
+    }
   };
   //   handle google login fnc
-  const handleGoogleLogin = () => {};
+  const handleGoogleLogin = async () => {
+    try {
+      await signInGoogle();
+      toast.success("Login Successfull");
+      navigate("/");
+    } catch (error) {
+      setMessage("Something went wrong, please try again");
+      console.log(error);
+    }
+  };
   return (
     <div className="h-[calc(100vh-120px)] flex justify-center items-center">
       <div className="w-full lg:max-w-sm mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-8">

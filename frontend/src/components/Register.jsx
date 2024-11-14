@@ -6,9 +6,9 @@ import { FaGoogle } from "react-icons/fa";
 import { UseAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 const Register = () => {
+  const { registerUser, signInGoogle } = UseAuth();
   // error message state
   const [message, setMessage] = useState("");
-  const { registerUser } = UseAuth();
 
   // handle login fnc
   const {
@@ -28,7 +28,15 @@ const Register = () => {
     }
   };
   // handle google login fnc
-  const handleGoogleLogin = () => {};
+  const handleGoogleLogin = async () => {
+    try {
+      await signInGoogle();
+      toast.success("Registered successfully");
+    } catch (error) {
+      setMessage("Something went wrong, please try again");
+      console.log(error);
+    }
+  };
   return (
     <div className="h-[calc(100vh-120px)] flex justify-center items-center">
       <div className="w-full lg:max-w-sm mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-8">
