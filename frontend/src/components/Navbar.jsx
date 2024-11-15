@@ -12,7 +12,7 @@ import { UseAuth } from "../context/AuthContext";
 const navigation = [
   { name: "Dashboard", href: "/dashboard" },
   { name: "Orders", href: "/orders" },
-  { name: "Cart", href: "/carts" },
+  { name: "Cart", href: "/cart" },
   { name: "Check Out", href: "/checkout" },
 ];
 

@@ -26,9 +26,17 @@ const orderApi = createApi({
         body: order,
       }),
     }),
+
+    // get orders by user email
+    getOrderByEmail: builder.query({
+      query: (email) => ({
+        url: `/get-order/${email}`,
+      }),
+      providesTags: ["Orders"],
+    }),
   }),
 });
 
-export const { usePlaceOrderMutation } = orderApi;
+export const { usePlaceOrderMutation, useGetOrderByEmailQuery } = orderApi;
 
 export default orderApi;
